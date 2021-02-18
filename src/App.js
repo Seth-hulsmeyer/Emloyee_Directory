@@ -1,23 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import ListGen from "./components/ListGen";
+import API from "./utils/API";
+import "./App.css";
 
 function App() {
+  const [user, setUser] = useState([]);
+
+  useEffect(() => {
+    //get information from the API
+    API.getEmps().then((res) => {
+      console.log(res.data.results);
+      setUser(res.data.results);
+    });
+  }, [user]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <ListGen employees={user} />
     </div>
   );
 }
