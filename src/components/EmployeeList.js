@@ -1,23 +1,88 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import API from "../utils/API";
+import SearchForm from "./SearchForm";
 
 function EmployeeList(props) {
+  const [search, setSearch] = useState("");
+  const [employees, setEmps] = useState([]);
+  const [filterEmps, setFilterEmps] = useState([]);
+
+  useEffect(() => {
+    API.getEmps().then((res) => {
+      setEmps(res.data.results);
+      setFilterEmps(res.data.results);
+    });
+  }, []);
+
+  const handleInputChange = (event) => {
+    setSearch(event.target.value);
+
+    // filter through employees array here
+    const result = employees.filter(
+      (employee) =>
+        // FILTER by first name
+        employee.name.first
+          .toLowerCase()
+          .startsWith(event.target.value.toLowerCase()) ||
+        // FILTER by last name
+        employee.name.last
+          .toLowerCase()
+          .startsWith(event.target.value.toLowerCase()) ||
+        // FILTER by phone
+        employee.phone.startsWith(event.target.value) ||
+        // FILTER by email
+        employee.email.startsWith(event.target.value)
+    );
+
+    setFilterEmps(result);
+  };
+
+  const handleSort = () => {
+    const sorted = employees.sort((a, b) =>
+      a.name.first > b.name.first ? 1 : -1
+    );
+    console.log(employees);
+    setFilterEmps(sorted);
+  };
+
   return (
-    //employee information table
-    <table>
-      <thead>
-        <tr>
-          {/* thumbnail image, name, birthday, gender, phone number, email, country */}
-          <th>Thumbnail</th>
-          {/* sort by name ascending on click */}
-          <th onClick={() => props.NAMEARRAY}>Name</th>
-          <th>Date of Birth</th>
-          <th>Gender</th>
-          <th>Phone Number</th>
-          <th>Email</th>
-          <th>Country</th>
-        </tr>
-      </thead>
-    </table>
+    <>
+      <div>
+        <SearchForm handleInputChange={handleInputChange} search={search} />
+      </div>
+      <table className="table">
+        <thead>
+          <tr>
+            <th></th>
+            <th onClick={() => handleSort()}>Name</th>
+            <th>Phone</th>
+            <th> Email</th>
+            <th>DOB</th>
+          </tr>
+        </thead>
+        <tbody>
+          {console.log(filterEmps)}
+          {filterEmps.map((employee) => (
+            <tr key={employee.login.uuid}>
+              <td>
+                <img
+                  src={employee.picture.thumbnail}
+                  alt={employee.login.uuid}
+                />
+              </td>
+              <td>
+                {employee.name.first} {employee.name.last}
+              </td>
+              <td>{employee.phone}</td>
+
+              <td>{employee.email}</td>
+
+              <td>{employee.dob.date}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </>
   );
 }
 
