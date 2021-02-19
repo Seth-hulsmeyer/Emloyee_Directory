@@ -41,8 +41,7 @@ function EmployeeList() {
     const sorted = employees.sort((a, b) =>
       a.name.first > b.name.first ? 1 : -1
     );
-    console.log(employees);
-    setFilterEmps(sorted);
+    setFilterEmps([...sorted]);
   };
 
   return (
@@ -54,9 +53,7 @@ function EmployeeList() {
         <thead>
           <tr>
             <th></th>
-            <th>
-              <button onClick={() => handleSort()}>Name</button>
-            </th>
+            <th onClick={() => handleSort()}>Name</th>
             <th>Phone</th>
             <th> Email</th>
             <th>DOB</th>
