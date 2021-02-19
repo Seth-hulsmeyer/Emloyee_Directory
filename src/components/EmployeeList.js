@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import API from "../utils/API";
 import SearchForm from "./SearchForm";
 
-function EmployeeList(props) {
+function EmployeeList() {
   const [search, setSearch] = useState("");
   const [employees, setEmps] = useState([]);
   const [filterEmps, setFilterEmps] = useState([]);
