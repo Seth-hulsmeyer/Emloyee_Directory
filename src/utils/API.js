@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const EMPAPI = "https://randomuser.me/api/?results=5000";
+const EMPAPI = "https://randomuser.me/api/?results=100";
 
 export default {
   getEmps: function () {

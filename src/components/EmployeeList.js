@@ -54,7 +54,9 @@ function EmployeeList() {
         <thead>
           <tr>
             <th></th>
-            <th onClick={() => handleSort()}>Name</th>
+            <th>
+              <button onClick={() => handleSort()}>Name</button>
+            </th>
             <th>Phone</th>
             <th> Email</th>
             <th>DOB</th>
@@ -77,7 +79,7 @@ function EmployeeList() {
 
               <td>{employee.email}</td>
 
-              <td>{employee.dob.date}</td>
+              <td>{employee.dob.date.slice(0, 10)}</td>
             </tr>
           ))}
         </tbody>
