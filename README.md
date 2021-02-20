@@ -27,9 +27,6 @@
   ## Contribution:
   > *Contributions are welcome! Please ensure that you are editing in branches and submit pull requests with your adjustments.*
 
-  ## License:
-  > *MIT*
-
   ## Questions:
   If you have questions, please reach out using the following link
   >[GitHub Profile](http://github.com/Seth-hulsmeyer)
