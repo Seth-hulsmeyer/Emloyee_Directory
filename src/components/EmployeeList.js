@@ -8,6 +8,7 @@ function EmployeeList() {
   const [filterEmps, setFilterEmps] = useState([]);
 
   useEffect(() => {
+    //gets employees from API
     API.getEmps().then((res) => {
       setEmps(res.data.results);
       setFilterEmps(res.data.results);
@@ -20,17 +21,17 @@ function EmployeeList() {
     // filter through employees array here
     const result = employees.filter(
       (employee) =>
-        // FILTER by first name
+        // filter by first name
         employee.name.first
           .toLowerCase()
           .startsWith(event.target.value.toLowerCase()) ||
-        // FILTER by last name
+        // filter by last name
         employee.name.last
           .toLowerCase()
           .startsWith(event.target.value.toLowerCase()) ||
-        // FILTER by phone
+        // filter by phone
         employee.phone.startsWith(event.target.value) ||
-        // FILTER by email
+        // filter by email
         employee.email.startsWith(event.target.value)
     );
 
@@ -38,6 +39,7 @@ function EmployeeList() {
   };
 
   const handleSort = () => {
+    //sorts the employees in alphabetical order
     const sorted = employees.sort((a, b) =>
       a.name.first > b.name.first ? 1 : -1
     );
@@ -60,7 +62,6 @@ function EmployeeList() {
           </tr>
         </thead>
         <tbody>
-          {console.log(filterEmps)}
           {filterEmps.map((employee) => (
             <tr key={employee.login.uuid}>
               <td>
